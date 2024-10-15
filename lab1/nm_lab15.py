@@ -1,13 +1,3 @@
-"""
-For input:
-
--1 2 9
-9 3 4
-8 -4 -6
-
-Output:
-Eigen values: [-13.007048150840406, (4.503141081268443+2.803623878520362j), (4.503141081268443-2.803623878520362j)]
-"""
 
 import numpy as np
 
@@ -90,9 +80,9 @@ def get_eigen_value(A, i, eps):
     while True:
         Q, R = QR_decomposition(A_i)
         A_i = R @ Q
-        if L2_norm(A_i[i + 1:, i]) <= eps:
+        if L2_norm(A_i[i + 1 :, i]) <= eps:
             return A_i[i][i], A_i
-        elif L2_norm(A_i[i + 2:, i]) <= eps and is_complex(A_i, i, eps):
+        elif L2_norm(A_i[i + 2 :, i]) <= eps and is_complex(A_i, i, eps):
             return get_roots(A_i, i), A_i
 
 
@@ -120,19 +110,39 @@ def get_eigen_values_QR(A, eps):
 
 
 def lab15():
-    n = int(input('Enter the size of matrix: '))
+    n = int(input("Enter the size of matrix: "))
 
-    print('Enter matrix A')
+    print("Enter matrix A")
     A = [[] for _ in range(n)]
     for i in range(n):
         row = list(map(int, input().split()))
         A[i] = row
-    A = np.array(A, dtype='float')
-    eps = float(input('Enter epsilon: '))
+    A = np.array(A, dtype="float")
+    eps = float(input("Enter epsilon: "))
 
     eig_values = get_eigen_values_QR(A, eps)
-    print('Eigen values:', eig_values)
+    print("Eigen values:", eig_values)
 
+
+def read_and_run15(infile, outfile):
+    f = open(infile, encoding='utf-8', mode='r')
+    if outfile is not None:
+        out = open(outfile, encoding='utf-8', mode='w')
+    else:
+        out = None
+    data = list(map(lambda x: x.rstrip('\n').lstrip('\n'), (f.readlines())))
+    
+    n = int(data[0])
+
+    A = [[] for _ in range(n)]
+    for i in range(n):
+        row = list(map(int, data[i + 1].split()))
+        A[i] = row
+    A = np.array(A, dtype="float")
+    eps = float(data[n + 1])
+
+    eig_values = get_eigen_values_QR(A, eps)
+    print("Eigen values:", eig_values, file=out)
 
 if __name__ == "__main__":
     lab15()

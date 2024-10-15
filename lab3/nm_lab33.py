@@ -90,25 +90,25 @@ def sum_squared_errors(x, y, ls_coefs):
     Calculate sum of squared errors
     """
     y_ls = [P(ls_coefs, x_i) for x_i in x]
-    return sum((y_i - y_ls_i)**2 for y_i, y_ls_i in zip(y, y_ls))
+    return sum((y_i - y_ls_i) ** 2 for y_i, y_ls_i in zip(y, y_ls))
 
 
 def lab33():
     x = [-1.0, 0.0, 1.0, 2.0, 3.0, 4.0]
     y = [-0.4597, 1.0, 1.5403, 1.5839, 2.010, 3.3464]
-    plt.scatter(x, y, color='r')
+    plt.scatter(x, y, color="r")
 
-    print('Least squares method, degree = 1')
+    print("Least squares method, degree = 1")
     ls1 = least_squares(x, y, 1)
-    print(f'P(x) = {ls1[0]} + {ls1[1]}x')
-    plt.plot(x, [P(ls1, x_i) for x_i in x], color='b', label='degree = 1')
-    print(f'Sum of squared errors = {sum_squared_errors(x, y, ls1)}')
+    print(f"P(x) = {ls1[0]} + {ls1[1]}x")
+    plt.plot(x, [P(ls1, x_i) for x_i in x], color="b", label="degree = 1")
+    print(f"Sum of squared errors = {sum_squared_errors(x, y, ls1)}")
 
-    print('Least squares method, degree = 2')
+    print("Least squares method, degree = 2")
     ls2 = least_squares(x, y, 2)
-    print(f'P(x) = {ls2[0]} + {ls2[1]}x + {ls2[2]}x^2')
-    plt.plot(x, [P(ls2, x_i) for x_i in x], color='g', label='degree = 2')
-    print(f'Sum of squared errors = {sum_squared_errors(x, y, ls2)}')
+    print(f"P(x) = {ls2[0]} + {ls2[1]}x + {ls2[2]}x^2")
+    plt.plot(x, [P(ls2, x_i) for x_i in x], color="g", label="degree = 2")
+    print(f"Sum of squared errors = {sum_squared_errors(x, y, ls2)}")
 
     plt.legend()
     plt.show()

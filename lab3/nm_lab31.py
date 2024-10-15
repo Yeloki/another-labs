@@ -38,20 +38,20 @@ def lagrange_interpolation(x, y, test_point):
         error between test_point and interpolation
     """
     assert len(x) == len(y)
-    polynom_str = 'L(x) ='
+    polynom_str = "L(x) ="
     polynom_test_value = 0  # L(x*)
     for i in range(len(x)):
-        cur_enum_str = ''  # enumerator of polynom's current term as string
+        cur_enum_str = ""  # enumerator of polynom's current term as string
         cur_enum_test = 1  # current value of polynom for test point
         cur_denom = 1
         for j in range(len(x)):
             if i == j:
                 continue
-            cur_enum_str += f'(x-{x[j]:.2f})'
-            cur_enum_test *= (test_point[0] - x[j])
-            cur_denom *= (x[i] - x[j])
+            cur_enum_str += f"(x-{x[j]:.2f})"
+            cur_enum_test *= test_point[0] - x[j]
+            cur_denom *= x[i] - x[j]
 
-        polynom_str += f' + {(y[i] / cur_denom):.2f}*' + cur_enum_str
+        polynom_str += f" + {(y[i] / cur_denom):.2f}*" + cur_enum_str
         polynom_test_value += y[i] * cur_enum_test / cur_denom
     return polynom_str, abs(polynom_test_value - test_point[1])
 
@@ -75,21 +75,20 @@ def newton_interpolation(x, y, test_point):
             coefs[j] = float(coefs[j] - coefs[j - 1]) / float(x[j] - x[j - i])
 
     # Get polynom
-    polynom_str = 'P(x) = '
+    polynom_str = "P(x) = "
     polynom_test_value = 0  # P(x*)
 
-    cur_multipliers_str = ''
+    cur_multipliers_str = ""
     cur_multipliers = 1
     for i in range(n):
         polynom_test_value += cur_multipliers * coefs[i]
         if i == 0:
-            polynom_str += f'{coefs[i]:.2f}'
+            polynom_str += f"{coefs[i]:.2f}"
         else:
-            polynom_str += ' + ' + cur_multipliers_str + \
-                '*' + f'{coefs[i]:.2f}'
+            polynom_str += " + " + cur_multipliers_str + "*" + f"{coefs[i]:.2f}"
 
-        cur_multipliers *= (test_point[0] - x[i])
-        cur_multipliers_str += f'(x-{x[i]:.2f})'
+        cur_multipliers *= test_point[0] - x[i]
+        cur_multipliers_str += f"(x-{x[i]:.2f})"
     return polynom_str, abs(polynom_test_value - test_point[1])
 
 
@@ -102,37 +101,37 @@ def lab31():
     x_test = 1
     y_test = f(x_test)
 
-    print('Lagrange interpolation')
-    print('Points A')
+    print("Lagrange interpolation")
+    print("Points A")
     lagrange_polynom_a, lagrange_error_a = lagrange_interpolation(
-        x_a, y_a, (x_test, y_test))
-    print('Polynom')
+        x_a, y_a, (x_test, y_test)
+    )
+    print("Polynom")
     print(lagrange_polynom_a)
-    print('Abs error for test point =', lagrange_error_a)
+    print("Abs error for test point =", lagrange_error_a)
 
-    print('Points B')
+    print("Points B")
     lagrange_polynom_b, lagrange_error_b = lagrange_interpolation(
-        x_b, y_b, (x_test, y_test))
-    print('Polynom')
+        x_b, y_b, (x_test, y_test)
+    )
+    print("Polynom")
     print(lagrange_polynom_b)
-    print('Abs error for test point =', lagrange_error_b)
+    print("Abs error for test point =", lagrange_error_b)
     print()
 
-    print('Newton interpolation')
-    print('Points A')
-    newton_polynom_a, newton_error_a = newton_interpolation(
-        x_a, y_a, (x_test, y_test))
-    print('Polynom')
+    print("Newton interpolation")
+    print("Points A")
+    newton_polynom_a, newton_error_a = newton_interpolation(x_a, y_a, (x_test, y_test))
+    print("Polynom")
     print(newton_polynom_a)
-    print('Abs error for test point =', newton_error_a)
+    print("Abs error for test point =", newton_error_a)
 
-    print('Points B')
-    newton_polynom_b, newton_error_b = newton_interpolation(
-        x_b, y_b, (x_test, y_test))
-    print('Polynom')
+    print("Points B")
+    newton_polynom_b, newton_error_b = newton_interpolation(x_b, y_b, (x_test, y_test))
+    print("Polynom")
     print(newton_polynom_b)
-    print('Abs error for test point =', newton_error_b)
+    print("Abs error for test point =", newton_error_b)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     lab31()

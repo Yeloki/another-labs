@@ -1,18 +1,4 @@
-"""
-For input:
 
-8 0 -2
-0 5 4
--2 4 -6
-
-Output:
-Eigen values: [ 8.4114636   6.12256101 -7.53402461]
-Eigen vectors
-[[ 0.95325304  0.27656345  0.12174281]
- [-0.22989951  0.92524861 -0.30176351]
- [-0.19609912  0.25966837  0.94557785]]
-Iterations: 5
-"""
 
 import numpy as np
 
@@ -39,6 +25,7 @@ def matrix_norm(X):
     Calculates L2 norm for elements above the main diagonal
     """
     norm = 0
+    n = len(X)
     for i in range(n):
         for j in range(i + 1, n):
             norm += X[i][j] * X[i][j]
@@ -60,9 +47,9 @@ def rotation_method(A, eps):
         if A_i[i_max][i_max] - A_i[j_max][j_max] == 0:
             phi = np.pi / 4
         else:
-            phi = 0.5 * \
-                np.arctan(2 * A_i[i_max][j_max] /
-                          (A_i[i_max][i_max] - A_i[j_max][j_max]))
+            phi = 0.5 * np.arctan(
+                2 * A_i[i_max][j_max] / (A_i[i_max][i_max] - A_i[j_max][j_max])
+            )
 
         # create rotation matrix
         U = np.eye(n)
@@ -80,22 +67,45 @@ def rotation_method(A, eps):
 
 
 def lab14():
-    n = int(input('Enter the size of matrix: '))
+    n = int(input("Enter the size of matrix: "))
 
-    print('Enter matrix A')
+    print("Enter matrix A")
     A = [[] for _ in range(n)]
     for i in range(n):
         row = list(map(int, input().split()))
         A[i] = row
-    A = np.array(A, dtype='float')
-    eps = float(input('Enter epsilon: '))
+    A = np.array(A, dtype="float")
+    eps = float(input("Enter epsilon: "))
 
     eig_values, eig_vectors, iters = rotation_method(A, eps)
-    print('Eigen values:', eig_values)
-    print('Eigen vectors')
+    print("Eigen values:", eig_values)
+    print("Eigen vectors")
     print(eig_vectors)
-    print('Iterations:', iters)
+    print("Iterations:", iters)
 
+
+def read_and_run14(infile, outfile):
+    f = open(infile, encoding='utf-8', mode='r')
+    if outfile is not None:
+        out = open(outfile, encoding='utf-8', mode='w')
+    else:
+        out = None
+    data = list(map(lambda x: x.rstrip('\n').lstrip('\n'), (f.readlines())))
+    
+    n = int(data[0])
+
+    A = [[] for _ in range(n)]
+    for i in range(n):
+        row = list(map(int, data[i + 1].split()))
+        A[i] = row
+    A = np.array(A, dtype="float")
+    eps = float(data[n + 1])
+
+    eig_values, eig_vectors, iters = rotation_method(A, eps)
+    print("Eigen values:", eig_values, file=out)
+    print("Eigen vectors",file=out)
+    print(eig_vectors,file=out)
+    print("Iterations:", iters,file=out)
 
 if __name__ == "__main__":
     lab14()

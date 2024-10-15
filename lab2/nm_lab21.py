@@ -15,15 +15,15 @@ import math
 
 
 def f(x):
-    return math.log(x + 1) - 2*x + 0.5
+    return math.sin(x) - x ** 2 + 1
 
 
 def phi(x):
-    return (math.log(x + 1) + 0.5) / 2
+    return (math.sin(x) + 1) ** 0.5
 
 
 def df(x):
-    return 1.0 / (x + 1) - 2
+    return math.cos(x) - 2 * x
 
 
 def iteration_method(f, phi, interval, eps):
@@ -63,19 +63,19 @@ def newton_method(f, df, interval, eps):
 
 
 def lab21():
-    print('Enter interval coordinates')
+    print("Enter interval coordinates")
     l, r = map(float, input().split())
-    eps = float(input('Enter epsilon: '))
+    eps = float(input("Enter epsilon: "))
 
-    print('Iteration method')
+    print("Iteration method")
     x_iter, i_iter = iteration_method(f, phi, (l, r), eps)
-    print('x =', x_iter, '; f(x) =', f(x_iter))
-    print('Iterations:', i_iter)
+    print("x =", x_iter, "; f(x) =", f(x_iter))
+    print("Iterations:", i_iter)
 
-    print('Newton method')
+    print("Newton method")
     x_newton, i_newton = newton_method(f, df, (l, r), eps)
-    print('x =', x_newton, '; f(x) =', f(x_newton))
-    print('Iterations:', i_newton)
+    print("x =", x_newton, "; f(x) =", f(x_newton))
+    print("Iterations:", i_newton)
 
 
 if __name__ == "__main__":

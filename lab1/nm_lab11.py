@@ -1,35 +1,3 @@
-"""
-For input:
--6 -5 -3 -8
-5 -1 -5 -4
--6 0 5 5
--7 -2 8 5
-
-101 51 -53 -63
-
-
-Output:
-LU decomposition
-L:
-  1.00   0.00   0.00   0.00
- -0.83   1.00   0.00   0.00
-  1.00  -0.97   1.00   0.00
-  1.17  -0.74   8.00   1.00
-U:
- -6.00  -5.00  -3.00  -8.00
-  0.00  -5.17  -7.50 -10.67
-  0.00   0.00   0.74   2.68
-  0.00  -0.00   0.00 -15.00
-System solution
-x: [-2.0, -3.0000000000000053, -6.000000000000004, -6.999999999999996]
-det A = -344.99999999999994
-A^(-1)
- -0.07   0.07  -0.20   0.14
-  0.01  -0.61  -0.26  -0.21
- -0.02  -0.38  -0.58   0.24
- -0.07   0.47   0.53  -0.07
-"""
-
 import copy
 
 
@@ -128,42 +96,74 @@ def transpose(X):
     return X_T
 
 
-def print_matrix(A):
+def print_matrix(A, out=None):
     m = len(A)
     n = len(A[0])
     for i in range(m):
         for j in range(n):
-            print(f'%6.2f' % A[i][j], end=' ')
-        print()
+            print(f"%6.2f" % A[i][j], end=" ", file=out)
+        print(file=out)
 
 
 def lab11():
-    n = int(input('Enter the size of matrix: '))
+    n = int(input("Enter the size of matrix: "))
 
-    print('Enter matrix A')
+    print("Enter matrix A")
     A = [[] for _ in range(n)]
     for i in range(n):
         row = list(map(int, input().split()))
         A[i] = row
-    print('Enter vector b')
+    print("Enter vector b")
     b = list(map(int, input().split()))
 
     print("LU decomposition")
     L, U = LU_decompose(A)
-    print('L:')
+    print("L:")
     print_matrix(L)
-    print('U:')
+    print("U:")
     print_matrix(U)
 
     print("System solution")
     x = solve_system(L, U, b)
-    print('x:', x)
+    print("x:", x)
 
     print("det A =", determinant(A))
 
     print("A^(-1)")
     print_matrix(inverse_matrix(A))
 
+def read_and_run11(infile, outfile):
+    f = open(infile, encoding='utf-8', mode='r')
+    if outfile is not None:
+        out = open(outfile, encoding='utf-8', mode='w')
+    else:
+        out = None
+    data = list(map(lambda x: x.rstrip('\n').lstrip('\n'), (f.readlines())))
+    n = int(data[0])
+    A = [[] for _ in range(n)]
+    for i in range(n):
+        row = list(map(int, data[i + 1].split()))
+        A[i] = row
+    
+    b = list(map(int, data[n].split()))
 
-if __name__ == '__main__':
+    print("LU decomposition", file=out)
+    L, U = LU_decompose(A)
+    print("L:", file=out)
+    print_matrix(L, out)
+    print("U:", file=out)
+    print_matrix(U, out)
+
+    print("System solution", file=out)
+    x = solve_system(L, U, b)
+    print("x:", x, file=out)
+
+    print("det A =", determinant(A), file=out)
+
+    print("A^(-1)", file=out)
+    print_matrix(inverse_matrix(A), out)
+
+
+
+if __name__ == "__main__":
     lab11()

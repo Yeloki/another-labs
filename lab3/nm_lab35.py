@@ -51,7 +51,7 @@ def integrate_simpson_method(f, l, r, h):
     result = 0
     cur_x = l + h
     while cur_x < r:
-        result += f(cur_x - h) + 4*f(cur_x) + f(cur_x + h)
+        result += f(cur_x - h) + 4 * f(cur_x) + f(cur_x + h)
         cur_x += 2 * h
     return result * h / 3
 
@@ -61,35 +61,41 @@ def runge_rombert_method(h1, h2, integral1, integral2, p):
     Find more accurate value of integral using previous calculations.
     Works if h1 == k * h2
     """
-    return integral1 + (integral1 - integral2) / ((h2 / h1)**p - 1)
+    return integral1 + (integral1 - integral2) / ((h2 / h1) ** p - 1)
 
 
 def lab35():
     l, r = -2, 2  # interval of integrating
     h1, h2 = 1.0, 0.5  # steps
 
-    print('Rectangle method')
+    print("Rectangle method")
     int_rectangle_h1 = integrate_rectangle_method(f, l, r, h1)
     int_rectangle_h2 = integrate_rectangle_method(f, l, r, h2)
-    print(f'Step = {h1}: integral = {int_rectangle_h1}')
-    print(f'Step = {h2}: integral = {int_rectangle_h2}')
+    print(f"Step = {h1}: integral = {int_rectangle_h1}")
+    print(f"Step = {h2}: integral = {int_rectangle_h2}")
 
-    print('Trapeze method')
+    print("Trapeze method")
     int_trapeze_h1 = integrate_trapeze_method(f, l, r, h1)
     int_trapeze_h2 = integrate_trapeze_method(f, l, r, h2)
-    print(f'Step = {h1}: integral = {int_trapeze_h1}')
-    print(f'Step = {h2}: integral = {int_trapeze_h2}')
+    print(f"Step = {h1}: integral = {int_trapeze_h1}")
+    print(f"Step = {h2}: integral = {int_trapeze_h2}")
 
-    print('Simpson method')
+    print("Simpson method")
     int_simpson_h1 = integrate_simpson_method(f, l, r, h1)
     int_simpson_h2 = integrate_simpson_method(f, l, r, h2)
-    print(f'Step = {h1}: integral = {int_simpson_h1}')
-    print(f'Step = {h2}: integral = {int_simpson_h2}')
+    print(f"Step = {h1}: integral = {int_simpson_h1}")
+    print(f"Step = {h2}: integral = {int_simpson_h2}")
 
-    print('Runge Rombert method')
-    print(f'More accurate integral by rectangle method = {runge_rombert_method(h1, h2, int_rectangle_h1, int_rectangle_h2, 3)}')
-    print(f'More accurate integral by trapeze method = {runge_rombert_method(h1, h2, int_trapeze_h1, int_trapeze_h2, 3)}')
-    print(f'More accurate integral by Simpson method = {runge_rombert_method(h1, h2, int_simpson_h1, int_simpson_h2, 3)}')
+    print("Runge Rombert method")
+    print(
+        f"More accurate integral by rectangle method = {runge_rombert_method(h1, h2, int_rectangle_h1, int_rectangle_h2, 3)}"
+    )
+    print(
+        f"More accurate integral by trapeze method = {runge_rombert_method(h1, h2, int_trapeze_h1, int_trapeze_h2, 3)}"
+    )
+    print(
+        f"More accurate integral by Simpson method = {runge_rombert_method(h1, h2, int_simpson_h1, int_simpson_h2, 3)}"
+    )
 
 
 if __name__ == "__main__":

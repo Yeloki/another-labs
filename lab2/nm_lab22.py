@@ -13,17 +13,16 @@ x = [0.42040958033662124, 0.9771610665596537] ; f1(x) = -0.0009701961902964795 ;
 Iterations: 1
 """
 
-
 import math
 import numpy as np
 
 
 def f1(X):
-    return X[0]**2 / 4 + X[1]**2 - 1
+    return X[0] ** 2 / 4 + X[1] ** 2 - 1
 
 
 def f2(X):
-    return 2*X[1] - math.exp(X[0]) - X[0]
+    return 2 * X[1] - math.exp(X[0]) - X[0]
 
 
 def df1_dx1(X):
@@ -147,22 +146,23 @@ def newton_method(f1, f2, df1_dx1, df1_dx2, df2_dx1, df2_dx2, intervals, eps):
 
 
 def lab22():
-    print('Enter interval for x1')
+    print("Enter interval for x1")
     l1, r1 = map(float, input().split())
-    print('Enter interval for x2')
+    print("Enter interval for x2")
     l2, r2 = map(float, input().split())
-    eps = float(input('Enter epsilon: '))
+    eps = float(input("Enter epsilon: "))
 
-    print('Newton method')
+    print("Newton method")
     x_newton, i_newton = newton_method(
-        f1, f2, df1_dx1, df1_dx2, df2_dx1, df2_dx2, [(l1, r1), (l2, r2)], eps)
-    print('x =', x_newton, '; f1(x) =', f1(x_newton), '; f2(x)=', f2(x_newton))
-    print('Iterations:', i_newton)
+        f1, f2, df1_dx1, df1_dx2, df2_dx1, df2_dx2, [(l1, r1), (l2, r2)], eps
+    )
+    print("x =", x_newton, "; f1(x) =", f1(x_newton), "; f2(x)=", f2(x_newton))
+    print("Iterations:", i_newton)
 
-    print('Iteration method')
+    print("Iteration method")
     x_iter, i_iter = iteration_method(phi1, phi2, [(l1, r1), (l2, r2)], eps)
-    print('x =', x_iter, '; f1(x) =', f1(x_iter), '; f2(x) =', f2(x_iter))
-    print('Iterations:', i_iter)
+    print("x =", x_iter, "; f1(x) =", f1(x_iter), "; f2(x) =", f2(x_iter))
+    print("Iterations:", i_iter)
 
 
 if __name__ == "__main__":
