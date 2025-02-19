@@ -153,6 +153,9 @@ def read_and_run11(infile, outfile):
     print_matrix(L, out)
     print("U:", file=out)
     print_matrix(U, out)
+    print(123, file=out)
+    print_matrix(mat_mult(L, U), out)
+
 
     print("System solution", file=out)
     x = solve_system(L, U, b)
@@ -162,6 +165,8 @@ def read_and_run11(infile, outfile):
 
     print("A^(-1)", file=out)
     print_matrix(inverse_matrix(A), out)
+    print(234, file=out)
+    print_matrix(mat_mult(A, inverse_matrix(A)), out)
 
 
 
